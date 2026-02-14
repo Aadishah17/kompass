@@ -25,4 +25,4 @@ fi
 
 echo "Found app at: $APP_PATH"
 xcrun simctl install "$DEVICE_ID" "$APP_PATH"
-xcrun simctl launch "$DEVICE_ID" "com.metaconfig.kompass"
+xcrun simctl launch "$DEVICE_ID" "com.aadishah.kompass"

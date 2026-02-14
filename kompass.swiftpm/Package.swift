@@ -16,7 +16,7 @@ let package = Package(
         .iOSApplication(
             name: "kompass",
             targets: ["AppModule"],
-            bundleIdentifier: "com.metaconfig.kompass",
+            bundleIdentifier: "com.aadishah.kompass",
             displayVersion: "1.0",
             bundleVersion: "1",
             appIcon: .asset("AppIcon"),
