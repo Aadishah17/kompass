@@ -6,13 +6,7 @@ class SearchCompleter: NSObject, ObservableObject, MKLocalSearchCompleterDelegat
     @Published var query = ""
     @Published var completions: [MKLocalSearchCompletion] = []
     
-    @Published var isOffline = false {
-        didSet {
-            if isOffline {
-                completions = []
-            }
-        }
-    }
+    @Published var isOffline = false
     
     private let completer = MKLocalSearchCompleter()
     private var cancellables = Set<AnyCancellable>()
@@ -25,9 +19,7 @@ class SearchCompleter: NSObject, ObservableObject, MKLocalSearchCompleterDelegat
             .debounce(for: .milliseconds(300), scheduler: RunLoop.main)
             .sink { [weak self] newQuery in
                 guard let self = self else { return }
-                if !self.isOffline {
-                    self.completer.queryFragment = newQuery
-                }
+                self.completer.queryFragment = newQuery
             }
             .store(in: &cancellables)
     }

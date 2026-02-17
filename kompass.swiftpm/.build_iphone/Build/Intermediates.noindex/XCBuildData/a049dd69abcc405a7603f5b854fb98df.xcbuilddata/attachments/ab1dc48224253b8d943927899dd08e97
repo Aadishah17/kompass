@@ -1,0 +1,179 @@
+{
+  "" : {
+    "diagnostics" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/kompass-primary.dia",
+    "emit-module-dependencies" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/kompass-primary-emit-module.d",
+    "emit-module-diagnostics" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/kompass-primary-emit-module.dia",
+    "pch" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/kompass-primary-Bridging-header.pch",
+    "swift-dependencies" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/kompass-primary.swiftdeps"
+  },
+  "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/DerivedSources/GeneratedAssetSymbols.swift" : {
+    "const-values" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/GeneratedAssetSymbols.swiftconstvalues",
+    "dependencies" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/GeneratedAssetSymbols.d",
+    "diagnostics" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/GeneratedAssetSymbols.dia",
+    "index-unit-output-path" : "/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/GeneratedAssetSymbols.o",
+    "llvm-bc" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/GeneratedAssetSymbols.bc",
+    "object" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/GeneratedAssetSymbols.o",
+    "swift-dependencies" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/GeneratedAssetSymbols.swiftdeps",
+    "swiftmodule" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/GeneratedAssetSymbols~partial.swiftmodule"
+  },
+  "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/DerivedSources/resource_bundle_accessor.swift" : {
+    "const-values" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/resource_bundle_accessor.swiftconstvalues",
+    "dependencies" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/resource_bundle_accessor.d",
+    "diagnostics" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/resource_bundle_accessor.dia",
+    "index-unit-output-path" : "/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/resource_bundle_accessor.o",
+    "llvm-bc" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/resource_bundle_accessor.bc",
+    "object" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/resource_bundle_accessor.o",
+    "swift-dependencies" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/resource_bundle_accessor.swiftdeps",
+    "swiftmodule" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/resource_bundle_accessor~partial.swiftmodule"
+  },
+  "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/BottomSheetView.swift" : {
+    "const-values" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/BottomSheetView.swiftconstvalues",
+    "dependencies" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/BottomSheetView.d",
+    "diagnostics" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/BottomSheetView.dia",
+    "index-unit-output-path" : "/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/BottomSheetView.o",
+    "llvm-bc" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/BottomSheetView.bc",
+    "object" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/BottomSheetView.o",
+    "swift-dependencies" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/BottomSheetView.swiftdeps",
+    "swiftmodule" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/BottomSheetView~partial.swiftmodule"
+  },
+  "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/CompassView.swift" : {
+    "const-values" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/CompassView.swiftconstvalues",
+    "dependencies" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/CompassView.d",
+    "diagnostics" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/CompassView.dia",
+    "index-unit-output-path" : "/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/CompassView.o",
+    "llvm-bc" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/CompassView.bc",
+    "object" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/CompassView.o",
+    "swift-dependencies" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/CompassView.swiftdeps",
+    "swiftmodule" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/CompassView~partial.swiftmodule"
+  },
+  "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/ContentView.swift" : {
+    "const-values" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/ContentView.swiftconstvalues",
+    "dependencies" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/ContentView.d",
+    "diagnostics" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/ContentView.dia",
+    "index-unit-output-path" : "/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/ContentView.o",
+    "llvm-bc" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/ContentView.bc",
+    "object" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/ContentView.o",
+    "swift-dependencies" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/ContentView.swiftdeps",
+    "swiftmodule" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/ContentView~partial.swiftmodule"
+  },
+  "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/Location.swift" : {
+    "const-values" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/Location.swiftconstvalues",
+    "dependencies" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/Location.d",
+    "diagnostics" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/Location.dia",
+    "index-unit-output-path" : "/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/Location.o",
+    "llvm-bc" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/Location.bc",
+    "object" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/Location.o",
+    "swift-dependencies" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/Location.swiftdeps",
+    "swiftmodule" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/Location~partial.swiftmodule"
+  },
+  "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/LocationDetailView.swift" : {
+    "const-values" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/LocationDetailView.swiftconstvalues",
+    "dependencies" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/LocationDetailView.d",
+    "diagnostics" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/LocationDetailView.dia",
+    "index-unit-output-path" : "/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/LocationDetailView.o",
+    "llvm-bc" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/LocationDetailView.bc",
+    "object" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/LocationDetailView.o",
+    "swift-dependencies" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/LocationDetailView.swiftdeps",
+    "swiftmodule" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/LocationDetailView~partial.swiftmodule"
+  },
+  "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/LocationManager.swift" : {
+    "const-values" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/LocationManager.swiftconstvalues",
+    "dependencies" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/LocationManager.d",
+    "diagnostics" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/LocationManager.dia",
+    "index-unit-output-path" : "/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/LocationManager.o",
+    "llvm-bc" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/LocationManager.bc",
+    "object" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/LocationManager.o",
+    "swift-dependencies" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/LocationManager.swiftdeps",
+    "swiftmodule" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/LocationManager~partial.swiftmodule"
+  },
+  "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/MapView.swift" : {
+    "const-values" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/MapView.swiftconstvalues",
+    "dependencies" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/MapView.d",
+    "diagnostics" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/MapView.dia",
+    "index-unit-output-path" : "/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/MapView.o",
+    "llvm-bc" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/MapView.bc",
+    "object" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/MapView.o",
+    "swift-dependencies" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/MapView.swiftdeps",
+    "swiftmodule" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/MapView~partial.swiftmodule"
+  },
+  "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/MyApp.swift" : {
+    "const-values" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/MyApp.swiftconstvalues",
+    "dependencies" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/MyApp.d",
+    "diagnostics" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/MyApp.dia",
+    "index-unit-output-path" : "/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/MyApp.o",
+    "llvm-bc" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/MyApp.bc",
+    "object" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/MyApp.o",
+    "swift-dependencies" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/MyApp.swiftdeps",
+    "swiftmodule" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/MyApp~partial.swiftmodule"
+  },
+  "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/NetworkManager.swift" : {
+    "const-values" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/NetworkManager.swiftconstvalues",
+    "dependencies" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/NetworkManager.d",
+    "diagnostics" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/NetworkManager.dia",
+    "index-unit-output-path" : "/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/NetworkManager.o",
+    "llvm-bc" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/NetworkManager.bc",
+    "object" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/NetworkManager.o",
+    "swift-dependencies" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/NetworkManager.swiftdeps",
+    "swiftmodule" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/NetworkManager~partial.swiftmodule"
+  },
+  "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/PlaceCategory.swift" : {
+    "const-values" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/PlaceCategory.swiftconstvalues",
+    "dependencies" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/PlaceCategory.d",
+    "diagnostics" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/PlaceCategory.dia",
+    "index-unit-output-path" : "/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/PlaceCategory.o",
+    "llvm-bc" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/PlaceCategory.bc",
+    "object" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/PlaceCategory.o",
+    "swift-dependencies" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/PlaceCategory.swiftdeps",
+    "swiftmodule" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/PlaceCategory~partial.swiftmodule"
+  },
+  "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/RideShareService.swift" : {
+    "const-values" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/RideShareService.swiftconstvalues",
+    "dependencies" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/RideShareService.d",
+    "diagnostics" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/RideShareService.dia",
+    "index-unit-output-path" : "/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/RideShareService.o",
+    "llvm-bc" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/RideShareService.bc",
+    "object" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/RideShareService.o",
+    "swift-dependencies" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/RideShareService.swiftdeps",
+    "swiftmodule" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/RideShareService~partial.swiftmodule"
+  },
+  "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/RouteComparisonView.swift" : {
+    "const-values" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/RouteComparisonView.swiftconstvalues",
+    "dependencies" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/RouteComparisonView.d",
+    "diagnostics" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/RouteComparisonView.dia",
+    "index-unit-output-path" : "/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/RouteComparisonView.o",
+    "llvm-bc" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/RouteComparisonView.bc",
+    "object" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/RouteComparisonView.o",
+    "swift-dependencies" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/RouteComparisonView.swiftdeps",
+    "swiftmodule" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/RouteComparisonView~partial.swiftmodule"
+  },
+  "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/SearchCompleter.swift" : {
+    "const-values" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/SearchCompleter.swiftconstvalues",
+    "dependencies" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/SearchCompleter.d",
+    "diagnostics" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/SearchCompleter.dia",
+    "index-unit-output-path" : "/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/SearchCompleter.o",
+    "llvm-bc" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/SearchCompleter.bc",
+    "object" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/SearchCompleter.o",
+    "swift-dependencies" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/SearchCompleter.swiftdeps",
+    "swiftmodule" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/SearchCompleter~partial.swiftmodule"
+  },
+  "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/TransitDetailView.swift" : {
+    "const-values" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/TransitDetailView.swiftconstvalues",
+    "dependencies" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/TransitDetailView.d",
+    "diagnostics" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/TransitDetailView.dia",
+    "index-unit-output-path" : "/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/TransitDetailView.o",
+    "llvm-bc" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/TransitDetailView.bc",
+    "object" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/TransitDetailView.o",
+    "swift-dependencies" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/TransitDetailView.swiftdeps",
+    "swiftmodule" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/TransitDetailView~partial.swiftmodule"
+  },
+  "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/TransportModeView.swift" : {
+    "const-values" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/TransportModeView.swiftconstvalues",
+    "dependencies" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/TransportModeView.d",
+    "diagnostics" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/TransportModeView.dia",
+    "index-unit-output-path" : "/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/TransportModeView.o",
+    "llvm-bc" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/TransportModeView.bc",
+    "object" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/TransportModeView.o",
+    "swift-dependencies" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/TransportModeView.swiftdeps",
+    "swiftmodule" : "/Users/student/Desktop/Aadi Shah/kompass.swiftpm/.build_iphone/Build/Intermediates.noindex/kompass.build/Debug-iphoneos/kompass.build/Objects-normal/arm64/TransportModeView~partial.swiftmodule"
+  }
+}

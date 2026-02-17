@@ -13,6 +13,7 @@ struct TransportModeView: View {
                 }
             }
             .padding(.horizontal, 16)
+            .padding(.vertical, 4)
         }
     }
     
@@ -25,36 +26,39 @@ struct TransportModeView: View {
                 selectedMode = mode
             }
         } label: {
-            HStack(spacing: 6) {
+            HStack(spacing: 7) {
                 Image(systemName: mode.icon)
-                    .font(.system(size: 14, weight: .medium))
+                    .font(.system(size: 14, weight: .semibold))
+                    .symbolEffect(.bounce, value: isSelected)
                 
                 VStack(alignment: .leading, spacing: 1) {
                     Text(mode.rawValue)
-                        .font(.system(size: 12, weight: .semibold))
+                        .font(.system(size: 12, weight: .bold, design: .rounded))
                     
                     if let opt = option {
                         Text(formatDuration(opt.travelTime))
-                            .font(.system(size: 10, weight: .medium))
-                            .opacity(0.8)
+                            .font(.system(size: 10, weight: .semibold, design: .rounded))
+                            .opacity(0.85)
                     } else if mode.isRideShare {
-                        Text(mode == .uber ? "Ride" : "Ride")
-                            .font(.system(size: 10))
+                        Text("Ride")
+                            .font(.system(size: 10, design: .rounded))
                             .opacity(0.7)
                     }
                 }
             }
-            .foregroundColor(isSelected ? .white : mode.color)
+            .foregroundColor(isSelected ? .white : Color(white: 0.7))
             .padding(.horizontal, 14)
             .padding(.vertical, 10)
             .background(
                 Capsule()
-                    .fill(isSelected ? mode.color : mode.color.opacity(0.1))
+                    .fill(isSelected ? AnyShapeStyle(mode.gradient) : AnyShapeStyle(Color(white: 0.1)))
+                    .shadow(color: isSelected ? mode.color.opacity(0.35) : .clear, radius: 8, y: 3)
             )
             .overlay(
                 Capsule()
-                    .stroke(isSelected ? Color.clear : mode.color.opacity(0.2), lineWidth: 1)
+                    .stroke(isSelected ? Color.clear : Color(white: 0.22), lineWidth: 1)
             )
+            .scaleEffect(isSelected ? 1.05 : 1.0)
         }
     }
     

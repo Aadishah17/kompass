@@ -60,14 +60,14 @@ struct BottomSheetView<Content: View>: View {
             }
             .frame(width: geometry.size.width, height: maxHeight, alignment: .top)
             .background(
-                ZStack {
-                    RoundedRectangle(cornerRadius: 16)
-                        .fill(.ultraThinMaterial)
-                    RoundedRectangle(cornerRadius: 16)
-                        .fill(Color(UIColor.systemBackground).opacity(0.85))
-                }
+                RoundedRectangle(cornerRadius: 16)
+                    .fill(Color.black)
             )
             .clipShape(RoundedRectangle(cornerRadius: 16))
+            .overlay(
+                RoundedRectangle(cornerRadius: 16)
+                    .stroke(Color(white: 0.15), lineWidth: 0.5)
+            )
             .shadow(color: Color.black.opacity(0.12), radius: 12, x: 0, y: -4)
             .frame(height: geometry.size.height, alignment: .bottom)
             .offset(y: max(self.offset + self.translation, 0))

@@ -38,8 +38,10 @@ struct MapView: UIViewRepresentable {
         // Update region
         if !isNavigating {
             let currentCenter = mapView.region.center
-            let diff = abs(currentCenter.latitude - region.center.latitude) + abs(currentCenter.longitude - region.center.longitude)
-            if diff > 0.0001 {
+            let centerDiff = abs(currentCenter.latitude - region.center.latitude) + abs(currentCenter.longitude - region.center.longitude)
+            let currentSpan = mapView.region.span
+            let spanDiff = abs(currentSpan.latitudeDelta - region.span.latitudeDelta) + abs(currentSpan.longitudeDelta - region.span.longitudeDelta)
+            if centerDiff > 0.0001 || spanDiff > 0.0001 {
                 mapView.setRegion(region, animated: true)
             }
         }

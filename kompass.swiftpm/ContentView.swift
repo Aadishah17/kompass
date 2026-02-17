@@ -193,6 +193,7 @@ struct ContentView: View {
                 navigationHeader
             }
         }
+        .preferredColorScheme(.dark)
         .sheet(isPresented: $showDirections) {
             directionsSheet
         }
@@ -205,7 +206,6 @@ struct ContentView: View {
             hasSetRegion = true
         }
         .onChange(of: toText) { newValue in
-            toCompleter.isOffline = networkManager.isEffectiveOffline
             toCompleter.query = newValue
         }
         .onReceive(toCompleter.$completions) { completions in
@@ -214,7 +214,7 @@ struct ContentView: View {
         .alert("Offline Mode", isPresented: $showOfflineAlert) {
             Button("OK", role: .cancel) { }
         } message: {
-            Text("You are currently offline. Please reconnect to the internet to use this feature.")
+            Text("Some features like search and routing need an internet connection. Your map, compass, GPS location, and saved places still work offline.")
         }
     }
     
@@ -223,11 +223,12 @@ struct ContentView: View {
         VStack(spacing: 0) {
             HStack(spacing: 12) {
                 Image(systemName: "magnifyingglass")
-                    .foregroundColor(.secondary)
+                    .foregroundColor(Color(white: 0.5))
                     .font(.system(size: 16, weight: .medium))
                 
                 TextField("Search places...", text: $toText)
-                    .font(.system(size: 16))
+                    .font(.system(size: 16, weight: .medium, design: .rounded))
+                    .foregroundColor(.white)
                     .onTapGesture {
                         activeField = .to
                         isBottomSheetOpen = true
@@ -235,22 +236,25 @@ struct ContentView: View {
                 
                 if !toText.isEmpty {
                     Button(action: {
-                        toText = ""
-                        toResults = []
-                        endLocation = nil
-                        nearbyPlaces = []
-                        selectedCategory = nil
+                        withAnimation(.spring(response: 0.3)) {
+                            toText = ""
+                            toResults = []
+                            endLocation = nil
+                            nearbyPlaces = []
+                            selectedCategory = nil
+                        }
                     }) {
                         Image(systemName: "xmark.circle.fill")
-                            .foregroundColor(.secondary)
+                            .foregroundColor(Color(white: 0.4))
+                            .font(.system(size: 18))
                     }
                 }
                 
                 // Current location label
                 if toText.isEmpty {
                     Text(locationManager.currentAddress.isEmpty ? "" : locationManager.currentAddress)
-                        .font(.caption)
-                        .foregroundColor(.secondary)
+                        .font(.system(size: 11, weight: .medium, design: .rounded))
+                        .foregroundColor(Color(white: 0.45))
                         .lineLimit(1)
                 }
             }
@@ -258,12 +262,11 @@ struct ContentView: View {
             .padding(.vertical, 12)
             .background(
                 RoundedRectangle(cornerRadius: 28)
-                    .fill(.ultraThinMaterial)
-                    .shadow(color: Color.black.opacity(0.08), radius: 8, x: 0, y: 2)
+                    .fill(Color(white: 0.1))
             )
             .overlay(
                 RoundedRectangle(cornerRadius: 28)
-                    .stroke(Color.primary.opacity(0.06), lineWidth: 1)
+                    .stroke(Color(white: 0.18), lineWidth: 1)
             )
             .padding(.horizontal, 16)
             .padding(.top, 56)
@@ -286,27 +289,31 @@ struct ContentView: View {
             VStack(spacing: 6) {
                 HStack(spacing: 10) {
                     Circle()
-                        .fill(Color.blue)
+                        .fill(Color.white)
                         .frame(width: 10, height: 10)
                     TextField("From: My Location", text: $fromText)
-                        .font(.system(size: 15))
+                        .font(.system(size: 15, design: .rounded))
+                        .foregroundColor(.white)
                         .onTapGesture { activeField = .from; isBottomSheetOpen = true }
                 }
                 .padding(10)
-                .background(Color(UIColor.tertiarySystemBackground))
+                .background(Color(white: 0.12))
                 .cornerRadius(10)
+                .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color(white: 0.2), lineWidth: 1))
                 
                 HStack(spacing: 10) {
                     Image(systemName: "mappin.circle.fill")
-                        .foregroundColor(.red)
+                        .foregroundColor(.white)
                         .font(.system(size: 12))
                     TextField("To: Destination", text: $toText)
-                        .font(.system(size: 15))
+                        .font(.system(size: 15, design: .rounded))
+                        .foregroundColor(.white)
                         .onTapGesture { activeField = .to; isBottomSheetOpen = true }
                 }
                 .padding(10)
-                .background(Color(UIColor.tertiarySystemBackground))
+                .background(Color(white: 0.12))
                 .cornerRadius(10)
+                .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color(white: 0.2), lineWidth: 1))
             }
             .padding(.horizontal)
             
@@ -335,7 +342,7 @@ struct ContentView: View {
                         fromText = ""
                     }
                 }
-                .foregroundColor(.red)
+                .foregroundColor(.white)
                 .font(.system(size: 15, weight: .medium))
                 
                 Spacer()
@@ -427,9 +434,9 @@ struct ContentView: View {
             } label: {
                 Image(systemName: "list.bullet")
                     .font(.system(size: 16, weight: .semibold))
-                    .foregroundColor(.white)
+                    .foregroundColor(.black)
                     .padding(10)
-                    .background(Color.blue)
+                    .background(Color.white)
                     .clipShape(Circle())
             }
         }
@@ -437,9 +444,9 @@ struct ContentView: View {
         .padding(.vertical, 12)
         .background(
             RoundedRectangle(cornerRadius: 14)
-                .fill(.ultraThinMaterial)
-                .shadow(color: Color.black.opacity(0.06), radius: 6)
+                .fill(Color(white: 0.1))
         )
+        .overlay(RoundedRectangle(cornerRadius: 14).stroke(Color(white: 0.18), lineWidth: 1))
         .padding(.horizontal, 16)
         .padding(.top, 6)
     }
@@ -454,14 +461,17 @@ struct ContentView: View {
             }
             Toggle("Traffic", isOn: $showTraffic)
             Toggle("3D Mode", isOn: $is3DMode)
+            
+            Divider()
+            Toggle("Simulate Offline", isOn: $networkManager.isSimulatedOffline)
         } label: {
             Image(systemName: "square.2.layers.3d")
                 .font(.system(size: 16, weight: .medium))
-                .foregroundColor(.primary)
+                .foregroundColor(.white)
                 .frame(width: 44, height: 44)
-                .background(.ultraThinMaterial)
+                .background(Color(white: 0.12))
                 .clipShape(Circle())
-                .shadow(color: Color.black.opacity(0.08), radius: 4)
+                .overlay(Circle().stroke(Color(white: 0.22), lineWidth: 1))
         }
     }
     
@@ -479,11 +489,11 @@ struct ContentView: View {
         }) {
             Image(systemName: "location.fill")
                 .font(.system(size: 16, weight: .medium))
-                .foregroundColor(.blue)
+                .foregroundColor(.white)
                 .frame(width: 44, height: 44)
-                .background(.ultraThinMaterial)
+                .background(Color(white: 0.12))
                 .clipShape(Circle())
-                .shadow(color: Color.black.opacity(0.08), radius: 4)
+                .overlay(Circle().stroke(Color(white: 0.22), lineWidth: 1))
         }
     }
     
@@ -492,20 +502,26 @@ struct ContentView: View {
         VStack(spacing: 0) {
             Button(action: zoomIn) {
                 Image(systemName: "plus")
-                    .font(.system(size: 16, weight: .medium))
-                    .frame(width: 44, height: 38)
+                    .font(.system(size: 15, weight: .bold))
+                    .frame(width: 44, height: 40)
             }
-            Divider().frame(width: 30)
+            Divider().frame(width: 28).opacity(0.3)
             Button(action: zoomOut) {
                 Image(systemName: "minus")
-                    .font(.system(size: 16, weight: .medium))
-                    .frame(width: 44, height: 38)
+                    .font(.system(size: 15, weight: .bold))
+                    .frame(width: 44, height: 40)
             }
         }
-        .foregroundColor(.primary)
-        .background(.ultraThinMaterial)
-        .clipShape(RoundedRectangle(cornerRadius: 12))
-        .shadow(color: Color.black.opacity(0.08), radius: 4)
+        .foregroundColor(.white)
+        .background(
+            RoundedRectangle(cornerRadius: 14)
+                .fill(Color(white: 0.12))
+        )
+        .clipShape(RoundedRectangle(cornerRadius: 14))
+        .overlay(
+            RoundedRectangle(cornerRadius: 14)
+                .stroke(Color(white: 0.22), lineWidth: 1)
+        )
     }
     
     // MARK: - Bottom Sheet Content
@@ -539,7 +555,7 @@ struct ContentView: View {
                     } label: {
                         Label("View Transit Details", systemImage: "list.bullet.below.rectangle")
                             .font(.subheadline.weight(.medium))
-                            .foregroundColor(.orange)
+                            .foregroundColor(.white)
                             .padding(.vertical, 10)
                     }
                 }
@@ -591,28 +607,49 @@ struct ContentView: View {
     // MARK: - Idle Content (Category chips + Recents)
     private var idleContent: some View {
         VStack(alignment: .leading, spacing: 16) {
+            // Section Header
+            HStack {
+                Text("Explore Nearby")
+                    .font(.system(size: 16, weight: .bold, design: .rounded))
+                    .foregroundColor(.white)
+                Spacer()
+            }
+            .padding(.horizontal, 16)
+            
             // Category Row
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 10) {
                     ForEach(PlaceCategory.allCases) { category in
+                        let isActive = selectedCategory == category
                         Button {
                             selectedCategory = category
                             searchNearby(category: category)
                         } label: {
-                            VStack(spacing: 6) {
-                                Image(systemName: category.icon)
-                                    .font(.system(size: 18))
-                                    .foregroundColor(category.color)
-                                    .frame(width: 46, height: 46)
-                                    .background(category.color.opacity(0.12))
-                                    .clipShape(Circle())
+                            VStack(spacing: 7) {
+                                ZStack {
+                                    Circle()
+                                        .fill(
+                                            isActive
+                                            ? LinearGradient(colors: [category.color, category.color.opacity(0.7)], startPoint: .topLeading, endPoint: .bottomTrailing)
+                                            : LinearGradient(colors: [Color(white: 0.14), Color(white: 0.10)], startPoint: .topLeading, endPoint: .bottomTrailing)
+                                        )
+                                        .frame(width: 50, height: 50)
+                                        .overlay(
+                                            Circle().stroke(isActive ? Color.clear : Color(white: 0.22), lineWidth: 1)
+                                        )
+                                        .shadow(color: isActive ? category.color.opacity(0.35) : .clear, radius: 6, y: 3)
+                                    Image(systemName: category.icon)
+                                        .font(.system(size: 20, weight: .medium))
+                                        .foregroundColor(isActive ? .white : category.color)
+                                        .symbolEffect(.bounce, value: isActive)
+                                }
                                 
                                 Text(category.rawValue)
-                                    .font(.caption2)
-                                    .foregroundColor(.primary)
+                                    .font(.system(size: 11, weight: isActive ? .bold : .medium, design: .rounded))
+                                    .foregroundColor(isActive ? category.color : Color(white: 0.6))
                                     .lineLimit(1)
                             }
-                            .frame(width: 68)
+                            .frame(width: 70)
                         }
                     }
                 }
@@ -630,7 +667,7 @@ struct ContentView: View {
                             recentSearches = []
                         }
                         .font(.caption)
-                        .foregroundColor(.secondary)
+                        .foregroundColor(Color(white: 0.5))
                     }
                     .padding(.horizontal, 16)
                     
@@ -666,7 +703,7 @@ struct ContentView: View {
                                 if let dist = place.formattedDistance {
                                     Text(dist)
                                         .font(.caption)
-                                        .foregroundColor(.secondary)
+                                        .foregroundColor(Color(white: 0.4))
                                 }
                             }
                             .padding(.horizontal, 16)
@@ -706,7 +743,7 @@ struct ContentView: View {
             }) {
                 HStack(spacing: 12) {
                     Image(systemName: "mappin.circle.fill")
-                        .foregroundColor(.red)
+                        .foregroundColor(.white)
                         .font(.system(size: 20))
                     
                     VStack(alignment: .leading, spacing: 2) {
@@ -872,7 +909,7 @@ struct ContentView: View {
             .padding()
             .background(
                 RoundedRectangle(cornerRadius: 16)
-                    .fill(Color.blue.gradient)
+                    .fill(Color.white.gradient)
             )
             .padding(.horizontal)
             .padding(.top, 52)
@@ -901,9 +938,9 @@ struct ContentView: View {
                         HStack(spacing: 12) {
                             Text("\(index + 1)")
                                 .font(.caption.bold())
-                                .foregroundColor(.white)
+                                .foregroundColor(.black)
                                 .frame(width: 24, height: 24)
-                                .background(Color.blue)
+                                .background(Color.white)
                                 .clipShape(Circle())
                             
                             Text(step.instructions.isEmpty ? "Continue" : step.instructions)
@@ -917,7 +954,7 @@ struct ContentView: View {
                         openInMaps()
                     } label: {
                         Label("Open in Apple Maps", systemImage: "map.fill")
-                            .foregroundColor(.green)
+                            .foregroundColor(.white)
                     }
                 }
             }
@@ -974,11 +1011,6 @@ struct ContentView: View {
     }
     
     func searchNearby(category: PlaceCategory) {
-        guard !networkManager.isEffectiveOffline else {
-            showOfflineAlert = true
-            return
-        }
-        
         isSearchingNearby = true
         isBottomSheetOpen = true
         
@@ -990,7 +1022,12 @@ struct ContentView: View {
         search.start { response, error in
             DispatchQueue.main.async {
                 isSearchingNearby = false
-                guard let response = response else { return }
+                guard let response = response else {
+                    if networkManager.isEffectiveOffline {
+                        showOfflineAlert = true
+                    }
+                    return
+                }
                 
                 nearbyPlaces = response.mapItems.map { item in
                     var loc = Location.from(mapItem: item, userLocation: locationManager.lastLocation)
@@ -1026,10 +1063,6 @@ struct ContentView: View {
     
     // MARK: - Route
     func calculateRoute() {
-        guard !networkManager.isEffectiveOffline else {
-            showOfflineAlert = true
-            return
-        }
         guard let start = startLocation, let end = endLocation else { return }
         
         let startPlacemark = MKPlacemark(coordinate: start.coordinate)
@@ -1061,16 +1094,17 @@ struct ContentView: View {
                 }
             } catch {
                 print("Error getting directions: \(error.localizedDescription)")
+                await MainActor.run {
+                    if networkManager.isEffectiveOffline {
+                        showOfflineAlert = true
+                    }
+                }
             }
         }
     }
     
     // MARK: - Multi-Route Calculation
     func calculateAllRoutes() {
-        guard !networkManager.isEffectiveOffline else {
-            showOfflineAlert = true
-            return
-        }
         guard let start = startLocation, let end = endLocation else { return }
         
         isCalculatingRoutes = true
@@ -1082,7 +1116,11 @@ struct ContentView: View {
         let nativeModes: [(ExtendedTransportMode, MKDirectionsTransportType)] = [
             (.drive, .automobile),
             (.walk, .walking),
-            (.transit, .transit)
+            (.transit, .transit),
+            (.cycle, .walking),
+            (.scooter, .walking),
+            (.motorcycle, .automobile),
+            (.ferry, .transit)
         ]
         
         Task {
@@ -1105,9 +1143,12 @@ struct ContentView: View {
                         
                         let steps = route.steps.map { SimpleRouteStep(instructions: $0.instructions) }
                         
+                        // Adjust travel time based on mode multiplier (approximation)
+                        let adjustedTime = route.expectedTravelTime * mode.speedMultiplier
+                        
                         let option = RouteOption(
                             mode: mode,
-                            travelTime: route.expectedTravelTime,
+                            travelTime: adjustedTime,
                             distance: route.distance,
                             steps: steps,
                             polylineCoords: coords,
@@ -1116,7 +1157,6 @@ struct ContentView: View {
                         options.append(option)
                     }
                 } catch {
-                    // Some transport types may not be available
                     print("No route for \(mode.rawValue): \(error.localizedDescription)")
                 }
             }
@@ -1223,7 +1263,7 @@ struct ContentView: View {
             
             if instruction.contains("bus") || instruction.contains("route") {
                 mode = .bus
-                color = .blue
+                color = .white
                 lineName = "Bus"
             } else if instruction.contains("metro") || instruction.contains("subway") || instruction.contains("line") {
                 mode = .metro
@@ -1256,9 +1296,9 @@ struct ContentView: View {
         
         if segments.isEmpty {
             segments = [
-                TransitSegment(mode: .walk, lineName: "", departure: "Start", arrival: "Bus Stop", stops: 0, duration: totalTime * 0.1, color: .gray),
-                TransitSegment(mode: .bus, lineName: "Bus", departure: "Bus Stop", arrival: "Transit Hub", stops: 4, duration: totalTime * 0.6, color: .blue),
-                TransitSegment(mode: .walk, lineName: "", departure: "Transit Hub", arrival: "Destination", stops: 0, duration: totalTime * 0.3, color: .gray)
+                TransitSegment(mode: .walk, lineName: "", departure: "Start", arrival: "Bus Stop", stops: 0, duration: totalTime * 0.1, color: .white),
+                TransitSegment(mode: .bus, lineName: "Bus", departure: "Bus Stop", arrival: "Transit Hub", stops: 4, duration: totalTime * 0.6, color: .white),
+                TransitSegment(mode: .walk, lineName: "", departure: "Transit Hub", arrival: "Destination", stops: 0, duration: totalTime * 0.3, color: .white)
             ]
         }
         

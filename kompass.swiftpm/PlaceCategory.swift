@@ -32,16 +32,16 @@ enum PlaceCategory: String, CaseIterable, Identifiable {
     
     var color: Color {
         switch self {
-        case .restaurant: return .orange
-        case .coffee: return .brown
-        case .gasStation: return .red
-        case .grocery: return .green
-        case .hotel: return .purple
-        case .parking: return .blue
-        case .pharmacy: return .mint
-        case .atm: return .indigo
-        case .hospital: return .red
-        case .park: return .green
+        case .restaurant: return .white
+        case .coffee: return .white
+        case .gasStation: return .white
+        case .grocery: return .white
+        case .hotel: return .white
+        case .parking: return .white
+        case .pharmacy: return .white
+        case .atm: return .white
+        case .hospital: return .white
+        case .park: return .white
         }
     }
     

@@ -10,7 +10,7 @@ struct CompassView: View {
             ZStack {
                 // Outer Ring
                 Circle()
-                    .stroke(LinearGradient(colors: [.blue, .purple], startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 4)
+                    .stroke(LinearGradient(colors: [.white, .gray], startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 4)
                     .frame(width: 220, height: 220)
                     .overlay(
                         Circle()
@@ -44,7 +44,7 @@ struct CompassView: View {
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 40, height: 40)
-                            .foregroundColor(.orange)
+                            .foregroundColor(.white)
                             .shadow(color: .orange.opacity(0.6), radius: 10)
                             .offset(y: -130) // Positioned outside/on the edge
                     }
@@ -56,8 +56,8 @@ struct CompassView: View {
                 VStack {
                     Image(systemName: "arrow.up")
                         .font(.system(size: 40, weight: .bold))
-                        .foregroundColor(.blue)
-                        .shadow(color: .blue.opacity(0.4), radius: 5)
+                        .foregroundColor(.white)
+                        .shadow(color: .white.opacity(0.4), radius: 5)
                 }
                 
                 // Heading Display

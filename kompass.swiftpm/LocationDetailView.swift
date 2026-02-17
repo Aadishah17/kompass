@@ -94,7 +94,7 @@ struct LocationDetailView: View {
                             ActionButton(
                                 icon: "arrow.triangle.turn.up.right.diamond.fill",
                                 label: "Directions",
-                                color: .blue,
+                                color: .white,
                                 isPrimary: true,
                                 action: onDirections
                             )
@@ -104,7 +104,7 @@ struct LocationDetailView: View {
                                 ActionButton(
                                     icon: "phone.fill",
                                     label: "Call",
-                                    color: .green,
+                                    color: .white,
                                     action: {
                                         if let url = URL(string: "tel://\(phone.replacingOccurrences(of: " ", with: ""))") {
                                             UIApplication.shared.open(url)
@@ -117,7 +117,7 @@ struct LocationDetailView: View {
                             ActionButton(
                                 icon: "bookmark.fill",
                                 label: "Save",
-                                color: .orange,
+                                color: .white,
                                 action: onSave
                             )
                             
@@ -125,7 +125,7 @@ struct LocationDetailView: View {
                             ActionButton(
                                 icon: "square.and.arrow.up",
                                 label: "Share",
-                                color: .purple,
+                                color: .white,
                                 action: {
                                     let text = "\(location.name)\n\(location.address ?? location.description)"
                                     let av = UIActivityViewController(activityItems: [text], applicationActivities: nil)
@@ -140,7 +140,7 @@ struct LocationDetailView: View {
                             ActionButton(
                                 icon: "map.fill",
                                 label: "Apple Maps",
-                                color: .mint,
+                                color: .white,
                                 action: {
                                     let placemark = MKPlacemark(coordinate: location.coordinate)
                                     let item = MKMapItem(placemark: placemark)
@@ -178,7 +178,7 @@ struct LocationDetailView: View {
                 }
             }
         }
-        .background(Color(UIColor.systemBackground))
+        .background(Color.black)
     }
 }
 
@@ -196,13 +196,14 @@ struct ActionButton: View {
                 Image(systemName: icon)
                     .font(.system(size: 18))
                     .frame(width: 48, height: 48)
-                    .background(isPrimary ? color : color.opacity(0.12))
+                    .background(isPrimary ? color : Color(white: 0.12))
                     .foregroundColor(isPrimary ? .white : color)
                     .clipShape(Circle())
+                    .overlay(Circle().stroke(isPrimary ? Color.clear : Color(white: 0.2), lineWidth: 1))
                 
                 Text(label)
                     .font(.caption2)
-                    .foregroundColor(.primary)
+                    .foregroundColor(Color(white: 0.7))
             }
         }
         .frame(width: 72)
@@ -218,7 +219,7 @@ struct InfoRow: View {
     var body: some View {
         HStack(spacing: 12) {
             Image(systemName: icon)
-                .foregroundColor(.blue)
+                .foregroundColor(.white)
                 .frame(width: 24)
             
             VStack(alignment: .leading, spacing: 2) {

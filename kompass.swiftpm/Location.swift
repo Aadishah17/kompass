@@ -84,7 +84,7 @@ struct Location: Identifiable {
     }
     
     var categoryColor: Color {
-        category?.color ?? .blue
+        category?.color ?? .white
     }
     
     var formattedDistance: String? {
