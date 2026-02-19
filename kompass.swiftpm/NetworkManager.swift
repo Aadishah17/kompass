@@ -5,7 +5,7 @@ import Combine
 @MainActor
 class NetworkManager: ObservableObject {
     @Published var isConnected = true
-    @Published var isSimulatedOffline = false
+    @Published var isSimulatedOffline = true
     
     private let monitor = NWPathMonitor()
     private let queue = DispatchQueue(label: "NetworkMonitor")

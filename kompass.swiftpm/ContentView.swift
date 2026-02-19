@@ -95,7 +95,7 @@ struct ContentView: View {
     // Search
     @StateObject private var toCompleter = SearchCompleter()
     @State private var toText = ""
-    @State private var toResults: [MKLocalSearchCompletion] = []
+    @State private var toResults: [SearchResult] = []
     @State private var fromText = ""
     @State private var activeField: ActiveField? = nil
     
@@ -208,6 +208,7 @@ struct ContentView: View {
                     totalSteps: routeSteps.count
                 )
                 .transition(.move(edge: .top).combined(with: .opacity))
+                .ignoresSafeArea(.container, edges: .top)
             }
             
             // MARK: - Compass FAB (during navigation)
@@ -257,6 +258,8 @@ struct ContentView: View {
         }
         .onChange(of: toText) { newValue in
             toCompleter.query = newValue
+            toCompleter.isOffline = networkManager.isEffectiveOffline
+            toCompleter.allLocations = allLocations
         }
         .onReceive(toCompleter.$completions) { completions in
             toResults = completions
@@ -828,8 +831,11 @@ struct ContentView: View {
                 }
                 .padding(.vertical, 4)
             }
+            .listRowBackground(Color.clear)
+            .listRowSeparatorTint(Color(white: 0.2))
         }
         .listStyle(.plain)
+        .scrollContentBackground(.hidden)
     }
     
     // MARK: - Nearby Places
@@ -1272,27 +1278,37 @@ struct ContentView: View {
     
     // MARK: - Search Methods
     
-    func selectSearchResult(_ completion: MKLocalSearchCompletion) {
-        let request = MKLocalSearch.Request(completion: completion)
-        let search = MKLocalSearch(request: request)
-        
-        search.start { response, error in
-            guard let response = response, let item = response.mapItems.first else { return }
+    func selectSearchResult(_ result: SearchResult) {
+        switch result {
+        case .online(let completion):
+            let request = MKLocalSearch.Request(completion: completion)
+            let search = MKLocalSearch(request: request)
             
-            DispatchQueue.main.async {
-                let location = Location.from(mapItem: item, userLocation: locationManager.lastLocation)
-                selectedLocation = location
-                addToRecents(location)
-                toText = location.name
-                toResults = []
+            search.start { response, error in
+                guard let response = response, let item = response.mapItems.first else { return }
                 
-                withAnimation {
-                    region = MKCoordinateRegion(
-                        center: location.coordinate,
-                        span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
-                    )
+                DispatchQueue.main.async {
+                    let location = Location.from(mapItem: item, userLocation: locationManager.lastLocation)
+                    finalizeSelection(location)
                 }
             }
+            
+        case .offline(let location):
+            finalizeSelection(location)
+        }
+    }
+    
+    private func finalizeSelection(_ location: Location) {
+        selectedLocation = location
+        addToRecents(location)
+        toText = location.name
+        toResults = []
+        
+        withAnimation {
+            region = MKCoordinateRegion(
+                center: location.coordinate,
+                span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+            )
         }
     }
     
@@ -1412,12 +1428,16 @@ struct ContentView: View {
             ]
             
             for (name, mkType) in types {
+                // HYBRID MODE: Try online first, fallback to offline if it fails
+                var onlineRouteFound = false
+                
                 let request = MKDirections.Request()
                 request.source = MKMapItem(placemark: startPlacemark)
                 request.destination = MKMapItem(placemark: endPlacemark)
                 request.transportType = mkType
                 
                 let directions = MKDirections(request: request)
+                
                 do {
                     let response = try await directions.calculate()
                     if let route = response.routes.first {
@@ -1433,9 +1453,38 @@ struct ContentView: View {
                         case "transit": transitData = data
                         default: break
                         }
+                        onlineRouteFound = true
                     }
                 } catch {
-                    print("No route for \(name): \(error.localizedDescription)")
+                    print("Online routing failed for \(name) (Offline Mode active): \(error.localizedDescription)")
+                }
+                
+                if !onlineRouteFound {
+                    // Fallback: Offline Direct Line
+                    let coords = [start.coordinate, end.coordinate]
+                    let loc1 = CLLocation(latitude: start.coordinate.latitude, longitude: start.coordinate.longitude)
+                    let loc2 = CLLocation(latitude: end.coordinate.latitude, longitude: end.coordinate.longitude)
+                    let dist = loc1.distance(from: loc2)
+                    
+                    // Estimate speed (m/s)
+                    let speed: Double
+                    switch name {
+                    case "drive": speed = 13.8 // ~50 km/h
+                    case "walk": speed = 1.4   // ~5 km/h
+                    case "transit": speed = 8.3 // ~30 km/h
+                    default: speed = 10.0
+                    }
+                    
+                    let time = dist / speed
+                    let steps = [SimpleRouteStep(instructions: "Go directly to destination")]
+                    let data = (coords: coords, steps: steps, time: time, dist: dist)
+                    
+                    switch name {
+                    case "drive": driveData = data
+                    case "walk": walkData = data
+                    case "transit": transitData = data
+                    default: break
+                    }
                 }
             }
             

@@ -60,7 +60,7 @@ struct LocationDetailView: View {
                                 if let dist = location.formattedDistance {
                                     Label(dist, systemImage: "location.fill")
                                         .font(.caption)
-                                        .foregroundColor(.secondary)
+                                        .foregroundColor(Color(white: 0.7))
                                 }
                                 
                                 if let isOpen = location.isOpen {
@@ -150,6 +150,7 @@ struct LocationDetailView: View {
                             )
                         }
                         .padding(.horizontal)
+                        .padding(.bottom, 8)
                     }
                     
                     Divider().padding(.horizontal)
@@ -225,9 +226,10 @@ struct InfoRow: View {
             VStack(alignment: .leading, spacing: 2) {
                 Text(label)
                     .font(.caption)
-                    .foregroundColor(.secondary)
+                    .foregroundColor(Color(white: 0.6))
                 Text(value)
                     .font(.subheadline)
+                    .foregroundColor(Color(white: 0.9))
             }
             
             Spacer()

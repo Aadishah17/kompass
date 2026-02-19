@@ -97,6 +97,16 @@ struct Location: Identifiable {
     }
 }
 
+extension Location: Equatable, Hashable {
+    static func == (lhs: Location, rhs: Location) -> Bool {
+        lhs.id == rhs.id
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+}
+
 extension Location {
     static let sampleData: [Location] = [
         Location(

@@ -46,17 +46,17 @@ struct TransportModeView: View {
                     }
                 }
             }
-            .foregroundColor(isSelected ? .white : Color(white: 0.7))
+            .foregroundColor(isSelected ? .white : Color(white: 0.6))
             .padding(.horizontal, 14)
             .padding(.vertical, 10)
             .background(
                 Capsule()
-                    .fill(isSelected ? AnyShapeStyle(mode.gradient) : AnyShapeStyle(Color(white: 0.1)))
-                    .shadow(color: isSelected ? mode.color.opacity(0.35) : .clear, radius: 8, y: 3)
+                    .fill(isSelected ? AnyShapeStyle(mode.gradient) : AnyShapeStyle(Color(white: 0.15)))
+                    .shadow(color: isSelected ? mode.color.opacity(0.5) : .clear, radius: 10, y: 4)
             )
             .overlay(
                 Capsule()
-                    .stroke(isSelected ? Color.clear : Color(white: 0.22), lineWidth: 1)
+                    .stroke(isSelected ? Color.white.opacity(0.3) : Color(white: 0.25), lineWidth: 1)
             )
             .scaleEffect(isSelected ? 1.05 : 1.0)
         }

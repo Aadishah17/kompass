@@ -68,13 +68,34 @@ struct DynamicIslandView: View {
                 Image(systemName: turnIcon)
                     .font(.system(size: 14, weight: .bold))
                     .foregroundColor(.green)
-                    .scaleEffect(pulseArrow ? 1.1 : 1.0)
-                    .animation(.easeInOut(duration: 1.2).repeatForever(autoreverses: true), value: pulseArrow)
+                    .overlay(
+                        GeometryReader { proxy in
+                            Rectangle()
+                                .fill(
+                                    LinearGradient(
+                                        gradient: Gradient(colors: [.clear, .white.opacity(0.7), .clear]),
+                                        startPoint: .leading,
+                                        endPoint: .trailing
+                                    )
+                                )
+                                .frame(width: 30)
+                                .offset(x: pulseArrow ? proxy.size.width : -30)
+                                .animation(
+                                    .linear(duration: 1.5).repeatForever(autoreverses: false),
+                                    value: pulseArrow
+                                )
+                        }
+                        .mask(Image(systemName: turnIcon).font(.system(size: 14, weight: .bold)))
+                    )
+                    .onAppear {
+                        pulseArrow = true
+                    }
                 
                 Text(abbreviateInstruction(currentInstruction))
                     .font(.system(size: 13, weight: .semibold, design: .rounded))
                     .foregroundColor(.white)
                     .lineLimit(1)
+                    .minimumScaleFactor(0.8)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             
@@ -82,8 +103,10 @@ struct DynamicIslandView: View {
             Text(etaFormatted)
                 .font(.system(size: 13, weight: .bold, design: .monospaced))
                 .foregroundColor(.green)
+                .layoutPriority(1)
+                .minimumScaleFactor(0.8)
         }
-        .padding(.horizontal, 20)
+        .padding(.horizontal, 16)
         .padding(.vertical, 12)
         .background(
             Capsule()
@@ -101,9 +124,11 @@ struct DynamicIslandView: View {
                     lineWidth: 0.5
                 )
         )
-        .padding(.horizontal, 50)
-        .padding(.top, 12)
+        .frame(width: 200)
+        .padding(.top, 14) // Increased slightly to lower it from the sensor housing
+        .contentShape(Rectangle()) // Ensure the entire area is hittable
         .onTapGesture {
+            print("Dynamic Island Tapped") // Debug print
             isExpanded = true
         }
     }
@@ -208,7 +233,7 @@ struct DynamicIslandView: View {
                 )
         )
         .padding(.horizontal, 14)
-        .padding(.top, 12)
+        .padding(.top, 11)
         .onTapGesture {
             isExpanded = false
         }
