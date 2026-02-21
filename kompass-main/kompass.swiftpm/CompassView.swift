@@ -95,7 +95,7 @@ struct CompassView: View {
                 
                 // Destination pointer arrow
                 if let targetBearing = bearing {
-                    let normalizedBearing = ((targetBearing - heading) + 360).truncatingRemainder(dividingBy: 360)
+                    let normalizedBearing = targetBearing
                     
                     ZStack {
                         // Glow trail
