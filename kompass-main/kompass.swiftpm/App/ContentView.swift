@@ -458,15 +458,25 @@ struct ContentView: View {
             }
             .padding(.horizontal, 16)
             .padding(.vertical, 12)
+            .padding(.horizontal, 16)
+            .padding(.vertical, 12)
             .background(
                 RoundedRectangle(cornerRadius: 28)
-                    .fill(Color(white: 0.1))
+                    .fill(Color.black)
             )
             .clipShape(RoundedRectangle(cornerRadius: 28))
             .overlay(
                 RoundedRectangle(cornerRadius: 28)
-                    .stroke(Color(white: 0.18), lineWidth: 1)
+                    .stroke(
+                        LinearGradient(
+                            colors: [Color.white.opacity(0.15), Color.clear],
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        ),
+                        lineWidth: 1
+                    )
             )
+            .shadow(color: Color.black.opacity(0.4), radius: 10, y: 4)
             .padding(.horizontal, 16)
             .padding(.top, 56)
         }
@@ -589,10 +599,21 @@ struct ContentView: View {
         }
         .padding(.vertical, 12)
         .background(
-            RoundedRectangle(cornerRadius: 18)
-                .fill(Color(white: 0.1))
-                .shadow(color: Color.black.opacity(0.08), radius: 8)
+            RoundedRectangle(cornerRadius: 24)
+                .fill(Color.black)
         )
+        .overlay(
+            RoundedRectangle(cornerRadius: 24)
+                .stroke(
+                    LinearGradient(
+                        colors: [Color.white.opacity(0.15), Color.clear],
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    ),
+                    lineWidth: 1
+                )
+        )
+        .shadow(color: Color.black.opacity(0.4), radius: 12, y: 6)
         .padding(.horizontal, 12)
         .padding(.top, 52)
     }
@@ -673,10 +694,21 @@ struct ContentView: View {
         .padding(.horizontal, 20)
         .padding(.vertical, 14)
         .background(
-            RoundedRectangle(cornerRadius: 14)
-                .fill(Color(white: 0.1))
+            RoundedRectangle(cornerRadius: 18)
+                .fill(Color.black)
         )
-        .overlay(RoundedRectangle(cornerRadius: 14).stroke(Color(white: 0.18), lineWidth: 1))
+        .overlay(
+            RoundedRectangle(cornerRadius: 18)
+                .stroke(
+                    LinearGradient(
+                        colors: [Color.white.opacity(0.15), Color.clear],
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    ),
+                    lineWidth: 1
+                )
+        )
+        .shadow(color: Color.black.opacity(0.4), radius: 10, y: 4)
         .padding(.horizontal, 16)
         .padding(.top, 6)
     }

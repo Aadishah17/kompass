@@ -8,15 +8,15 @@ echo "Booting simulator..."
 xcrun simctl boot "$DEVICE_ID" || true
 open -a Simulator
 
-echo "Building app..."
-# Navigate to the package directory
-cd "kompass.swiftpm"
+echo "Generating Xcode project..."
+./scripts/generate_xcodeproj.rb
 
-# Build
-xcodebuild -scheme kompass -destination "platform=iOS Simulator,id=$DEVICE_ID" -derivedDataPath ".build" build
+echo "Building app..."
+# Build the Xcode project instead of the Swift package
+xcodebuild -project Kompass.xcodeproj -scheme Kompass -destination "platform=iOS Simulator,id=$DEVICE_ID" -derivedDataPath ".build" build
 
 echo "Installing and launching..."
-APP_PATH=$(find .build -name "kompass.app" | head -n 1)
+APP_PATH=$(find .build/Build/Products/Debug-iphonesimulator -name "Kompass.app" | head -n 1)
 
 if [ -z "$APP_PATH" ]; then
     echo "Error: App bundle not found!"

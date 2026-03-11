@@ -56,29 +56,29 @@ struct BottomSheetView<Content: View>: View {
         GeometryReader { geometry in
             VStack(spacing: 0) {
                 self.indicator
-                    .padding(.top, 8)
-                    .padding(.bottom, 6)
+                    .padding(.top, 12)
+                    .padding(.bottom, 8)
                 self.content
             }
             .frame(width: geometry.size.width, height: maxHeight, alignment: .top)
-            .frame(width: geometry.size.width, height: maxHeight, alignment: .top)
             .background(
                 Rectangle()
-                    .fill(.ultraThinMaterial)
+                    .fill(Color.black)
                     .environment(\.colorScheme, .dark)
             )
-            .background(
-                Color(red: 0.03, green: 0.03, blue: 0.05).opacity(0.85)  // Slight tint for dark mode
-            )
-            .clipShape(RoundedRectangle(cornerRadius: 32, style: .continuous))
+            .clipShape(RoundedRectangle(cornerRadius: 38, style: .continuous))
             .overlay(
-                RoundedRectangle(cornerRadius: 32, style: .continuous)
+                RoundedRectangle(cornerRadius: 38, style: .continuous)
                     .stroke(
                         LinearGradient(
-                            colors: [Color.white.opacity(0.2), Color.clear], startPoint: .top,
-                            endPoint: .bottom), lineWidth: 0.5)
+                            colors: [Color.white.opacity(0.15), Color.clear],
+                            startPoint: .top,
+                            endPoint: .bottom
+                        ),
+                        lineWidth: 0.8
+                    )
             )
-            .shadow(color: Color.black.opacity(0.25), radius: 24, x: 0, y: -8)
+            .shadow(color: Color.black.opacity(0.4), radius: 30, x: 0, y: -4)
             .frame(height: geometry.size.height, alignment: .bottom)
             .offset(y: max(self.offset + self.translation, 0))
             .animation(

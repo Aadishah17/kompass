@@ -9,34 +9,21 @@ PROJECT_PATH = File.join(ROOT, "Kompass.xcodeproj")
 TEAM_ID = "W4CGNMV2HK"
 DEPLOYMENT_TARGET = "17.0"
 
-APP_SOURCES = %w[
-  BottomSheetView.swift
-  CompassView.swift
-  ContentView.swift
-  DynamicIslandView.swift
-  Location.swift
-  LocationDetailView.swift
-  LocationManager.swift
-  MapView.swift
-  MyApp.swift
-  NavigationAttributes.swift
-  NavigationLiveActivityManager.swift
-  OfflineCities.swift
-  PlaceCategory.swift
-  RideShareService.swift
-  RouteAgentCoordinator.swift
-  RouteComparisonView.swift
-  SearchCompleter.swift
-  SearchResult.swift
-  TransitDetailView.swift
-  TransportModeView.swift
-].freeze
+APP_GROUPS = {
+  "App" => %w[MyApp.swift ContentView.swift],
+  "Views" => %w[CompassView.swift MapView.swift BottomSheetView.swift DynamicIslandView.swift LocationDetailView.swift TransitDetailView.swift TransportModeView.swift RouteComparisonView.swift],
+  "Models" => %w[Location.swift NavigationAttributes.swift OfflineCities.swift PlaceCategory.swift SearchResult.swift],
+  "Services" => %w[LocationManager.swift NavigationLiveActivityManager.swift NetworkManager.swift RideShareService.swift RouteAgentCoordinator.swift SearchCompleter.swift]
+}.freeze
 
-WIDGET_SOURCES = %w[
-  KompassNavigationWidgetBundle.swift
-  LiveActivityWidget.swift
-  NavigationAttributes.swift
-].freeze
+WIDGET_GROUPS = {
+  "Widget" => %w[KompassNavigationWidgetBundle.swift LiveActivityWidget.swift]
+}.freeze
+
+# NavigationAttributes needs to be in Widget target as well, but it's physically in Models.
+SHARED_SOURCES = {
+  "Models" => %w[NavigationAttributes.swift]
+}.freeze
 
 SUPPORT_FILES = {
   app_info: "XcodeSupport/App/Info.plist",
@@ -122,14 +109,36 @@ widget_target.build_configurations.each do |config|
   config.build_settings["SKIP_INSTALL"] = "YES"
 end
 
-APP_SOURCES.each do |source|
-  file_ref = package_group.new_file(source)
-  app_target.add_file_references([file_ref])
+# Create proper groups and add files for App Target
+file_refs_cache = {}
+
+APP_GROUPS.each do |group_name, files|
+  group = package_group.new_group(group_name, group_name)
+  files.each do |file|
+    file_ref = group.new_file(file)
+    file_refs_cache["#{group_name}/#{file}"] = file_ref
+    app_target.add_file_references([file_ref])
+  end
 end
 
-WIDGET_SOURCES.each do |source|
-  file_ref = package_group.files.find { |file| file.path == source } || package_group.new_file(source)
-  widget_target.add_file_references([file_ref])
+# Create groups and add files for Widget Target
+WIDGET_GROUPS.each do |group_name, files|
+  group = package_group.new_group(group_name, group_name)
+  files.each do |file|
+    file_ref = group.new_file(file)
+    file_refs_cache["#{group_name}/#{file}"] = file_ref
+    widget_target.add_file_references([file_ref])
+  end
+end
+
+# Link shared sources to Widget target (already added to project tree by APP_GROUPS)
+SHARED_SOURCES.each do |group_name, files|
+  files.each do |file|
+    file_ref = file_refs_cache["#{group_name}/#{file}"]
+    if file_ref
+      widget_target.add_file_references([file_ref])
+    end
+  end
 end
 
 assets_ref = package_group.new_file("Assets.xcassets")
