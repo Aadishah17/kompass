@@ -23,11 +23,10 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
         // Upgrade to highest possible accuracy for pinpoint offline tracking
         manager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
         manager.distanceFilter = kCLDistanceFilterNone  // Receive all updates
-        manager.startUpdatingLocation()
-        manager.startUpdatingHeading()
-
         if manager.authorizationStatus == .notDetermined {
             manager.requestWhenInUseAuthorization()
+        } else {
+            startLiveUpdates()
         }
     }
 
@@ -35,6 +34,13 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
         let auth = manager.authorizationStatus
         Task { @MainActor [weak self] in
             self?.authorizationStatus = auth
+            switch auth {
+            case .authorizedAlways, .authorizedWhenInUse:
+                self?.startLiveUpdates()
+            default:
+                self?.manager.stopUpdatingLocation()
+                self?.manager.stopUpdatingHeading()
+            }
         }
     }
 
@@ -76,6 +82,11 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
 
     private func formatPlacemark(_ placemark: CLPlacemark) -> String {
         return "Unknown Location"
+    }
+
+    private func startLiveUpdates() {
+        manager.startUpdatingLocation()
+        manager.startUpdatingHeading()
     }
 
     func bearingTo(target: CLLocationCoordinate2D) -> Double? {

@@ -169,8 +169,7 @@ struct MapView: UIViewRepresentable {
             return
         }
 
-        // Check if route changed
-        if context.coordinator.lastRouteCoordinates.count != routeCoordinates.count {
+        if context.coordinator.routeHasChanged(comparedTo: routeCoordinates) {
             context.coordinator.lastRouteCoordinates = routeCoordinates
 
             // Remove only polyline overlays, NOT tile overlays
@@ -223,6 +222,15 @@ struct MapView: UIViewRepresentable {
 
         init(parent: MapView) {
             self.parent = parent
+        }
+
+        func routeHasChanged(comparedTo coordinates: [CLLocationCoordinate2D]) -> Bool {
+            guard lastRouteCoordinates.count == coordinates.count else { return true }
+
+            return zip(lastRouteCoordinates, coordinates).contains { lhs, rhs in
+                abs(lhs.latitude - rhs.latitude) > 0.000001
+                    || abs(lhs.longitude - rhs.longitude) > 0.000001
+            }
         }
 
         func startAnimation(mapView: MKMapView) {
@@ -287,7 +295,6 @@ struct MapView: UIViewRepresentable {
                         // We want to move pattern ALONG the line (forward).
                         // So we subtract.
 
-                        let moveOffset = totalLen * (1.0 + 0.3) * progress  // Move slightly more than 1.0 to clear
                         // We start with dash fully hidden "behind" start, or just entering?
                         // Let's start with phase = segmentLength (hidden left) and decrease?
 

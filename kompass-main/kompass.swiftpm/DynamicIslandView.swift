@@ -1,23 +1,24 @@
-// MARK: - Dynamic Island Navigation Overlay
-// Simulates Apple Maps-style Dynamic Island during navigation.
-// Shows compact pill by default; expand on tap for detailed view.
-
+import Foundation
 import SwiftUI
 
 struct DynamicIslandView: View {
+    let destinationName: String
+    let destinationDetail: String
     let currentInstruction: String
     let nextInstruction: String?
+    let summaryText: String
+    let arrivalTimeText: String
+    let statusText: String
     let etaSeconds: TimeInterval
     let distanceMeters: Double
+    let progressValue: Double
     let stepIndex: Int
     let totalSteps: Int
     var onTap: () -> Void = {}
     var onEndNavigation: () -> Void = {}
 
     @State private var isExpanded = false
-    @State private var pulseArrow = false
 
-    // Derive turn icon from instruction
     private var turnIcon: String {
         let lower = currentInstruction.lowercased()
         if lower.contains("direct") { return "arrow.up" }
@@ -26,7 +27,7 @@ struct DynamicIslandView: View {
         if lower.contains("u-turn") || lower.contains("u turn") { return "arrow.uturn.down" }
         if lower.contains("merge") { return "arrow.merge" }
         if lower.contains("exit") { return "arrow.up.right" }
-        if lower.contains("destination") || lower.contains("arrive") { return "mappin.circle.fill" }
+        if lower.contains("destination") || lower.contains("arrive") { return "flag.checkered" }
         return "arrow.up"
     }
 
@@ -34,16 +35,28 @@ struct DynamicIslandView: View {
         let mins = Int(etaSeconds) / 60
         if mins < 1 { return "<1 min" }
         if mins < 60 { return "\(mins) min" }
-        let h = mins / 60
-        let m = mins % 60
-        return m > 0 ? "\(h)h \(m)m" : "\(h)h"
+        let hours = mins / 60
+        let minutes = mins % 60
+        return minutes > 0 ? "\(hours)h \(minutes)m" : "\(hours)h"
     }
 
-    private var distFormatted: String {
+    private var distanceFormatted: String {
         if distanceMeters < 1000 {
-            return "\(Int(distanceMeters))m"
+            return "\(Int(distanceMeters)) m"
         }
         return String(format: "%.1f km", distanceMeters / 1000)
+    }
+
+    private var progressPercentText: String {
+        "\(Int((clampedProgress * 100).rounded()))%"
+    }
+
+    private var clampedProgress: Double {
+        min(max(progressValue, 0), 1)
+    }
+
+    private var stepText: String {
+        "\(min(stepIndex + 1, max(totalSteps, 1)))/\(max(totalSteps, 1))"
     }
 
     var body: some View {
@@ -56,173 +69,242 @@ struct DynamicIslandView: View {
                 }
                 Spacer()
             }
-            // Push exactly down to the safe area edge where the physical notch sits
-            .padding(.top, proxy.safeAreaInsets.top > 0 ? proxy.safeAreaInsets.top - 4 : 44)
-            .animation(.spring(response: 0.4, dampingFraction: 0.82), value: isExpanded)
-            .onAppear {
-                pulseArrow = true
-            }
+            .padding(.top, max(proxy.safeAreaInsets.top + 6, 18))
+            .padding(.horizontal, isExpanded ? 12 : 18)
+            .animation(.spring(response: 0.4, dampingFraction: 0.84), value: isExpanded)
         }
         .ignoresSafeArea(.all, edges: .top)
     }
 
-    // MARK: - Compact Pill (sits inside the notch cutout)
     private var compactView: some View {
-        HStack(spacing: 10) {
-            // Turn arrow with pulse
-            Image(systemName: turnIcon)
-                .font(.system(size: 13, weight: .bold))
-                .foregroundColor(.green)
-
-            Text(abbreviateInstruction(currentInstruction))
-                .font(.system(size: 12, weight: .semibold, design: .rounded))
-                .foregroundColor(.white)
-                .lineLimit(1)
-                .minimumScaleFactor(0.7)
-
-            Spacer(minLength: 4)
-
-            Text(etaFormatted)
-                .font(.system(size: 12, weight: .bold, design: .monospaced))
-                .foregroundColor(.green)
-        }
-        .padding(.horizontal, 14)
-        .padding(.vertical, 8)
-        .background(
-            Capsule()
-                .fill(Color.black)
-        )
-        .overlay(
-            Capsule()
-                .strokeBorder(Color.white.opacity(0.12), lineWidth: 0.5)
-        )
-        // Position
-        .padding(.horizontal, 40)
-        .contentShape(Rectangle())
-        .onTapGesture {
+        Button {
+            onTap()
             isExpanded = true
-        }
-    }
-
-    // MARK: - Expanded View (drops down from notch)
-    private var expandedView: some View {
-        VStack(spacing: 8) {
-            // Turn direction + instruction
+        } label: {
             HStack(spacing: 10) {
                 ZStack {
                     Circle()
-                        .fill(Color.green.opacity(0.15))
-                        .frame(width: 36, height: 36)
+                        .fill(Color.green.opacity(0.16))
+                        .frame(width: 28, height: 28)
                     Image(systemName: turnIcon)
-                        .font(.system(size: 16, weight: .bold))
+                        .font(.system(size: 12, weight: .bold))
                         .foregroundColor(.green)
                 }
 
-                VStack(alignment: .leading, spacing: 2) {
+                VStack(alignment: .leading, spacing: 1) {
+                    Text(destinationName)
+                        .font(.system(size: 11, weight: .semibold, design: .rounded))
+                        .foregroundColor(Color(white: 0.58))
+                        .lineLimit(1)
+                    Text(abbreviate(currentInstruction, limit: 26))
+                        .font(.system(size: 12, weight: .bold, design: .rounded))
+                        .foregroundColor(.white)
+                        .lineLimit(1)
+                }
+
+                Spacer(minLength: 4)
+
+                VStack(alignment: .trailing, spacing: 1) {
+                    Text(etaFormatted)
+                        .font(.system(size: 12, weight: .bold, design: .monospaced))
+                        .foregroundColor(.green)
+                    Text(progressPercentText)
+                        .font(.system(size: 10, weight: .semibold, design: .rounded))
+                        .foregroundColor(Color(white: 0.55))
+                }
+            }
+            .padding(.horizontal, 14)
+            .padding(.vertical, 9)
+            .background(
+                Capsule()
+                    .fill(Color.black)
+            )
+            .overlay(
+                Capsule()
+                    .strokeBorder(Color.white.opacity(0.12), lineWidth: 0.5)
+            )
+            .shadow(color: .black.opacity(0.35), radius: 10, y: 4)
+        }
+        .buttonStyle(.plain)
+    }
+
+    private var expandedView: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            HStack(alignment: .top, spacing: 12) {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(destinationName)
+                        .font(.system(size: 15, weight: .bold, design: .rounded))
+                        .foregroundColor(.white)
+                        .lineLimit(1)
+                    Text(destinationDetail)
+                        .font(.system(size: 11, weight: .medium, design: .rounded))
+                        .foregroundColor(Color(white: 0.54))
+                        .lineLimit(2)
+                    statusPill(statusText)
+                }
+
+                Spacer(minLength: 12)
+
+                Button {
+                    isExpanded = false
+                } label: {
+                    Image(systemName: "chevron.up")
+                        .font(.system(size: 12, weight: .bold))
+                        .foregroundColor(.white)
+                        .frame(width: 32, height: 32)
+                        .background(Color(white: 0.14))
+                        .clipShape(Circle())
+                }
+                .buttonStyle(.plain)
+            }
+
+            HStack(alignment: .top, spacing: 12) {
+                ZStack {
+                    Circle()
+                        .fill(Color.green.opacity(0.16))
+                        .frame(width: 42, height: 42)
+                    Image(systemName: turnIcon)
+                        .font(.system(size: 18, weight: .bold))
+                        .foregroundColor(.green)
+                }
+
+                VStack(alignment: .leading, spacing: 4) {
                     Text(currentInstruction.isEmpty ? "Continue on route" : currentInstruction)
-                        .font(.system(size: 14, weight: .bold, design: .rounded))
+                        .font(.system(size: 15, weight: .bold, design: .rounded))
                         .foregroundColor(.white)
                         .lineLimit(2)
-                        .minimumScaleFactor(0.8)
 
-                    if let next = nextInstruction, !next.isEmpty {
-                        Text("Then: \(abbreviateInstruction(next))")
-                            .font(.system(size: 10, weight: .medium, design: .rounded))
-                            .foregroundColor(Color(white: 0.5))
-                            .lineLimit(1)
+                    if let nextInstruction, !nextInstruction.isEmpty {
+                        Text("Then \(abbreviate(nextInstruction, limit: 44))")
+                            .font(.system(size: 12, weight: .medium, design: .rounded))
+                            .foregroundColor(Color(white: 0.58))
+                            .lineLimit(2)
                     }
+
+                    Text(summaryText)
+                        .font(.system(size: 11, weight: .semibold, design: .rounded))
+                        .foregroundColor(.green.opacity(0.9))
                 }
 
-                Spacer()
+                Spacer(minLength: 0)
             }
 
-            // Progress bar
-            GeometryReader { geo in
-                ZStack(alignment: .leading) {
-                    Capsule()
-                        .fill(Color(white: 0.2))
-                        .frame(height: 3)
-                    Capsule()
-                        .fill(Color.green)
-                        .frame(
-                            width: geo.size.width * CGFloat(stepIndex + 1)
-                                / CGFloat(max(totalSteps, 1)), height: 3
-                        )
-                        .animation(.spring(response: 0.4), value: stepIndex)
-                }
-            }
-            .frame(height: 3)
-
-            // Bottom row: ETA + Distance + Step + End
-            HStack(spacing: 12) {
-                HStack(spacing: 3) {
-                    Image(systemName: "clock.fill")
-                        .font(.system(size: 9))
-                        .foregroundColor(.green)
-                    Text(etaFormatted)
+            VStack(alignment: .leading, spacing: 8) {
+                HStack {
+                    Text("Trip progress")
+                        .font(.system(size: 11, weight: .semibold, design: .rounded))
+                        .foregroundColor(Color(white: 0.55))
+                    Spacer(minLength: 8)
+                    Text(progressPercentText)
                         .font(.system(size: 11, weight: .bold, design: .rounded))
                         .foregroundColor(.white)
                 }
 
-                HStack(spacing: 3) {
-                    Image(systemName: "location.fill")
-                        .font(.system(size: 9))
-                        .foregroundColor(Color(white: 0.5))
-                    Text(distFormatted)
-                        .font(.system(size: 11, weight: .medium, design: .rounded))
-                        .foregroundColor(Color(white: 0.6))
+                GeometryReader { geo in
+                    ZStack(alignment: .leading) {
+                        Capsule()
+                            .fill(Color(white: 0.18))
+                        Capsule()
+                            .fill(Color.green)
+                            .frame(width: geo.size.width * CGFloat(clampedProgress))
+                    }
                 }
+                .frame(height: 5)
+            }
 
-                Text("\(stepIndex + 1)/\(totalSteps)")
-                    .font(.system(size: 10, weight: .medium, design: .rounded))
-                    .foregroundColor(Color(white: 0.4))
+            LazyVGrid(
+                columns: [GridItem(.flexible(), spacing: 8), GridItem(.flexible(), spacing: 8)],
+                spacing: 8
+            ) {
+                statCard(title: "ETA", value: etaFormatted, accent: .green)
+                statCard(title: "Arrive", value: arrivalTimeText)
+                statCard(title: "Left", value: distanceFormatted)
+                statCard(title: "Step", value: stepText)
+            }
 
-                Spacer()
+            HStack(spacing: 10) {
+                Text(abbreviate(summaryText, limit: 40))
+                    .font(.system(size: 11, weight: .medium, design: .rounded))
+                    .foregroundColor(Color(white: 0.58))
+                    .lineLimit(1)
 
-                // End navigation
+                Spacer(minLength: 8)
+
                 Button {
                     onEndNavigation()
                 } label: {
-                    HStack(spacing: 4) {
+                    HStack(spacing: 5) {
                         Image(systemName: "xmark.circle.fill")
-                            .font(.system(size: 10, weight: .bold))
+                            .font(.system(size: 11, weight: .bold))
                         Text("End")
                             .font(.system(size: 11, weight: .bold, design: .rounded))
                     }
                     .foregroundColor(.white)
-                    .padding(.horizontal, 10)
-                    .padding(.vertical, 5)
-                    .background(Color.red.opacity(0.7))
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 7)
+                    .background(Color.red.opacity(0.78))
                     .clipShape(Capsule())
                 }
+                .buttonStyle(.plain)
             }
         }
         .padding(.horizontal, 14)
-        .padding(.top, 10)
-        .padding(.bottom, 10)
+        .padding(.top, 12)
+        .padding(.bottom, 12)
         .background(
             RoundedRectangle(cornerRadius: 28)
                 .fill(Color.black)
-                .shadow(color: .black.opacity(0.5), radius: 12, y: 4)
+                .shadow(color: .black.opacity(0.45), radius: 14, y: 5)
         )
         .overlay(
             RoundedRectangle(cornerRadius: 28)
                 .strokeBorder(Color.white.opacity(0.1), lineWidth: 0.5)
         )
-        .padding(.horizontal, 10)
-        .padding(.top, 0)
-        .onTapGesture {
-            isExpanded = false
-        }
     }
 
-    private func abbreviateInstruction(_ text: String) -> String {
-        let short =
-            text
-            .replacingOccurrences(of: "Turn ", with: "")
-            .replacingOccurrences(of: "Continue on ", with: "On ")
-            .replacingOccurrences(of: "Keep ", with: "")
-            .replacingOccurrences(of: "Proceed to ", with: "To ")
-        return String(short.prefix(28)) + (short.count > 28 ? "…" : "")
+    private func statusPill(_ title: String) -> some View {
+        Text(title.uppercased())
+            .font(.system(size: 10, weight: .bold, design: .rounded))
+            .foregroundColor(.white)
+            .padding(.horizontal, 10)
+            .padding(.vertical, 5)
+            .background(
+                Capsule()
+                    .fill(Color(white: 0.14))
+            )
+            .overlay(
+                Capsule()
+                    .stroke(Color(white: 0.2), lineWidth: 1)
+            )
+    }
+
+    private func statCard(title: String, value: String, accent: Color = .white) -> some View {
+        VStack(alignment: .leading, spacing: 6) {
+            Text(title)
+                .font(.system(size: 10, weight: .semibold, design: .rounded))
+                .foregroundColor(Color(white: 0.55))
+            Text(value)
+                .font(.system(size: 13, weight: .bold, design: .rounded))
+                .foregroundColor(accent)
+                .lineLimit(2)
+                .minimumScaleFactor(0.82)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.horizontal, 10)
+        .padding(.vertical, 9)
+        .background(
+            RoundedRectangle(cornerRadius: 14)
+                .fill(Color(white: 0.12))
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 14)
+                .stroke(Color(white: 0.18), lineWidth: 1)
+        )
+    }
+
+    private func abbreviate(_ text: String, limit: Int) -> String {
+        let trimmed = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard trimmed.count > limit else { return trimmed }
+        return String(trimmed.prefix(limit)) + "…"
     }
 }

@@ -40,6 +40,7 @@ struct RideShareService {
     }
     
     /// Check if the ride-share app is installed
+    @MainActor
     static func isAvailable(_ provider: Provider) -> Bool {
         guard let url = URL(string: provider.urlScheme) else { return false }
         return UIApplication.shared.canOpenURL(url)
@@ -83,6 +84,7 @@ struct RideShareService {
     }
     
     /// Open the ride-share app or fallback to App Store
+    @MainActor
     static func openRideShare(
         provider: Provider,
         pickup: CLLocationCoordinate2D,

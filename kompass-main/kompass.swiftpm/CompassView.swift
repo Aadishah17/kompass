@@ -1,5 +1,6 @@
-import SwiftUI
 import CoreLocation
+import SwiftUI
+import UIKit
 
 struct CompassView: View {
     @ObservedObject var locationManager: LocationManager
@@ -151,7 +152,7 @@ struct CompassView: View {
             .frame(width: 280, height: 280)
             .rotationEffect(.degrees(-heading))
             .animation(.easeOut(duration: 0.3), value: heading)
-            .onChange(of: heading) { newHeading in
+            .onChange(of: heading) { _, newHeading in
                 if let tb = bearing {
                     let diff = ((tb - newHeading) + 360).truncatingRemainder(dividingBy: 360)
                     if (diff <= 1 || diff >= 359) {
