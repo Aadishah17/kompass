@@ -286,11 +286,6 @@ struct ContentView: View {
                     }
                 }
 
-                // Route Info Bar
-                if let info = routeInfo, isRoutePlanning && !isNavigating {
-                    routeInfoBar(info: info)
-                }
-
                 Spacer()
             }
 
@@ -307,13 +302,15 @@ struct ContentView: View {
             }
             .frame(maxWidth: .infinity, alignment: .trailing)
 
-            // MARK: - Bottom Sheet
-            BottomSheetView(
-                isOpen: $isBottomSheetOpen,
-                maxHeight: UIScreen.main.bounds.height * 0.7,
-                minHeight: isNavigating ? 0 : 80
-            ) {
-                bottomSheetContent
+            // MARK: - Bottom Sheet (hidden during navigation to avoid overlap with navigationHeader)
+            if !isNavigating {
+                BottomSheetView(
+                    isOpen: $isBottomSheetOpen,
+                    maxHeight: UIScreen.main.bounds.height * 0.7,
+                    minHeight: 80
+                ) {
+                    bottomSheetContent
+                }
             }
 
             // MARK: - Navigation Header
@@ -321,25 +318,8 @@ struct ContentView: View {
                 navigationHeader
             }
 
-            // MARK: - Dynamic Island
-            if isNavigating && !routeSteps.isEmpty {
-                DynamicIslandView(
-                    destinationName: destinationDisplayName,
-                    destinationDetail: destinationDetailText,
-                    currentInstruction: currentInstructionText,
-                    nextInstruction: nextInstructionText,
-                    summaryText: remainingCheckpointText,
-                    arrivalTimeText: arrivalTimeText,
-                    statusText: navigationStatusText,
-                    etaSeconds: displayedRemainingTravelTime,
-                    distanceMeters: displayedRemainingDistance,
-                    progressValue: navigationProgress,
-                    stepIndex: currentStepIndex,
-                    totalSteps: routeSteps.count,
-                    onEndNavigation: stopNavigation
-                )
-                .transition(.move(edge: .top).combined(with: .opacity))
-            }
+            // Dynamic Island is handled by the real ActivityKit Live Activity
+            // (see LiveActivityWidget.swift and NavigationLiveActivityManager.swift)
 
             // MARK: - Compass FAB (during navigation)
             if isNavigating && !showCompass {
