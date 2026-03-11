@@ -1558,6 +1558,32 @@ struct ContentView: View {
         switch result {
         case .offline(let location):
             finalizeSelection(location)
+        case .online(let completion):
+            let request = MKLocalSearch.Request(completion: completion)
+            let search = MKLocalSearch(request: request)
+            
+            Task {
+                do {
+                    let response = try await search.start()
+                    guard let item = response.mapItems.first else { return }
+                    
+                    let location = Location(
+                        name: item.name ?? completion.title,
+                        coordinate: item.placemark.coordinate,
+                        description: completion.subtitle,
+                        iconName: "mappin.circle.fill",
+                        address: item.placemark.title,
+                        category: nil,
+                        distance: nil
+                    )
+                    
+                    await MainActor.run {
+                        self.finalizeSelection(location)
+                    }
+                } catch {
+                    print("Local search failed: \(error.localizedDescription)")
+                }
+            }
         }
     }
 

@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "5D667683BA3F8141CC72B3D3"
+               BlueprintIdentifier = "6243AFDA2D2126D2D7968265"
                BuildableName = "Kompass.app"
                BlueprintName = "Kompass"
                ReferencedContainer = "container:Kompass.xcodeproj">
@@ -30,7 +30,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "5D667683BA3F8141CC72B3D3"
+            BlueprintIdentifier = "6243AFDA2D2126D2D7968265"
             BuildableName = "Kompass.app"
             BlueprintName = "Kompass"
             ReferencedContainer = "container:Kompass.xcodeproj">
@@ -53,7 +53,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "5D667683BA3F8141CC72B3D3"
+            BlueprintIdentifier = "6243AFDA2D2126D2D7968265"
             BuildableName = "Kompass.app"
             BlueprintName = "Kompass"
             ReferencedContainer = "container:Kompass.xcodeproj">
@@ -70,7 +70,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "5D667683BA3F8141CC72B3D3"
+            BlueprintIdentifier = "6243AFDA2D2126D2D7968265"
             BuildableName = "Kompass.app"
             BlueprintName = "Kompass"
             ReferencedContainer = "container:Kompass.xcodeproj">

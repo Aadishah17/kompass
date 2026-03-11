@@ -38,19 +38,12 @@ struct MapView: UIViewRepresentable {
         config.showsTraffic = false
         mapView.preferredConfiguration = config
 
-        // Lock map to San Francisco Downtown
-        let sfCenter = CLLocationCoordinate2D(latitude: 37.79, longitude: -122.40)
-        
-        // Zoom constraints
+        // Relax zoom constraints for global scale
         let zoomRange = MKMapView.CameraZoomRange(
-            minCenterCoordinateDistance: 500,   // Max zoom in (~street level)
-            maxCenterCoordinateDistance: 15000   // Max zoom out (city overview)
+            minCenterCoordinateDistance: 200 // Max zoom in (~street level)
         )
         mapView.setCameraZoomRange(zoomRange, animated: false)
         
-        // Pan boundaries — user cannot scroll beyond SF
-        let boundaryRegion = MKCoordinateRegion(center: sfCenter, latitudinalMeters: 12000, longitudinalMeters: 12000)
-        mapView.setCameraBoundary(MKMapView.CameraBoundary(coordinateRegion: boundaryRegion), animated: false)
         return mapView
     }
 
