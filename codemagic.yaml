@@ -4,18 +4,17 @@ workflows:
   ios-simulator-verification:
     name: iOS Simulator Build Verification
     max_build_duration: 60
-    instance_type: mac_mini_co2
+    instance_type: mac_mini_m2
     triggering:
       events:
         - push
         - pull_request
       branch_patterns:
         - pattern: main
-          target_type: primary
     environment:
       xcode: latest
       cocoapods: default
-    caching:
+    cache:
       cache_paths:
         - ~/.gem
         - kompass-main/.build
@@ -43,17 +42,16 @@ workflows:
   ios-device-compilation:
     name: iOS Generic Device Build (No-Sign Compilation)
     max_build_duration: 60
-    instance_type: mac_mini_co2
+    instance_type: mac_mini_m2
     triggering:
       events:
         - push
       branch_patterns:
         - pattern: main
-          target_type: primary
     environment:
       xcode: latest
       cocoapods: default
-    caching:
+    cache:
       cache_paths:
         - ~/.gem
         - kompass-main/.build_device
