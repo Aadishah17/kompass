@@ -1,0 +1,81 @@
+# Codemagic CI/CD configuration for Kompass Offline Navigation
+
+workflows:
+  ios-simulator-verification:
+    name: iOS Simulator Build Verification
+    max_build_duration: 60
+    instance_type: mac_mini_co2
+    triggering:
+      events:
+        - push
+        - pull_request
+      branch_patterns:
+        - pattern: main
+          target_type: primary
+    environment:
+      xcode: latest
+      cocoapods: default
+    caching:
+      cache_paths:
+        - ~/.gem
+        - kompass-main/.build
+    scripts:
+      - name: Install Ruby Dependencies
+        script: |
+          gem install xcodeproj --no-document
+      - name: Generate Xcode Project
+        script: |
+          cd kompass-main
+          ruby scripts/generate_xcodeproj.rb
+      - name: Build App for iOS Simulator
+        script: |
+          cd kompass-main
+          xcodebuild \
+            -project Kompass.xcodeproj \
+            -scheme Kompass \
+            -sdk iphonesimulator \
+            -destination "platform=iOS Simulator,name=iPhone 15,OS=latest" \
+            -derivedDataPath .build \
+            clean build
+    artifacts:
+      - kompass-main/.build/Build/Products/Debug-iphonesimulator/Kompass.app
+
+  ios-device-compilation:
+    name: iOS Generic Device Build (No-Sign Compilation)
+    max_build_duration: 60
+    instance_type: mac_mini_co2
+    triggering:
+      events:
+        - push
+      branch_patterns:
+        - pattern: main
+          target_type: primary
+    environment:
+      xcode: latest
+      cocoapods: default
+    caching:
+      cache_paths:
+        - ~/.gem
+        - kompass-main/.build_device
+    scripts:
+      - name: Install Ruby Dependencies
+        script: |
+          gem install xcodeproj --no-document
+      - name: Generate Xcode Project
+        script: |
+          cd kompass-main
+          ruby scripts/generate_xcodeproj.rb
+      - name: Build App for Generic iOS Device
+        script: |
+          cd kompass-main
+          xcodebuild \
+            -project Kompass.xcodeproj \
+            -scheme Kompass \
+            -sdk iphoneos \
+            -derivedDataPath .build_device \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            ENTITLEMENTS_REQUIRED=NO \
+            clean build
+    artifacts:
+      - kompass-main/.build_device/Build/Products/Debug-iphoneos/Kompass.app

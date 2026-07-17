@@ -236,6 +236,7 @@ struct MapView: UIViewRepresentable {
                 if overlay is AnimatablePolyline,
                     let renderer = mapView.renderer(for: overlay) as? MKPolylineRenderer
                 {
+                    renderer.lineDashPattern = [20, 40]
                     activeAnimRenderers.append(renderer)
                 }
             }
@@ -244,57 +245,15 @@ struct MapView: UIViewRepresentable {
                 [weak self] _ in
                 Task { @MainActor in
                     guard let self = self else { return }
-                    self.animePhase += 0.02
-
-                    // Loading Bar Chase Effect
-                    // Use truncated remainder to cycle 0 -> 1
-                    let progress = self.animePhase.truncatingRemainder(dividingBy: 1.0)
+                    // Advance phase in screen points per frame
+                    self.animePhase += 1.5
+                    
+                    // Dash pattern is [20, 40] -> total pattern length is 60 screen points.
+                    let patternLength: CGFloat = 60
+                    let phase = -self.animePhase.truncatingRemainder(dividingBy: Double(patternLength))
 
                     for renderer in self.activeAnimRenderers {
-                        let totalLen =
-                            renderer.polyline.boundingMapRect.size.width
-                            + renderer.polyline.boundingMapRect.size.height
-                        // Length tuning: MapRect units are large, but relative proportions work
-                        // We want a visible dash. Let's make it 30% of the total length.
-
-                        // Note: MKPolylineRenderer geometry is in map points.
-                        // We'll use a simpler heuristic for dash pattern.
-                        // If we set pattern to [len, gap], and phase, it repeats.
-                        // We want ONE segment moving.
-                        // So pattern should be [segmentLength, hugeGap].
-
-                        let segmentLength = totalLen * 0.3
-                        let gapLength = totalLen * 2.0  // Make gap large enough so we don't see a second one
-
-                        renderer.lineDashPattern = [
-                            NSNumber(value: Double(segmentLength)),
-                            NSNumber(value: Double(gapLength)),
-                        ]
-
-                        // Move the phase backwards to make dash move forwards?
-                        // Phase is the offset into the pattern where drawing starts.
-                        // If phase = 0, dash starts at 0.
-                        // If phase = segmentLength, dash starts at -segmentLength (invisible).
-                        // We want dash to travel from 0 to totalLen.
-                        // Phase should go from segmentLength down to -totalLen ?
-
-                        // Actually: phase P means "start drawing at index P of the pattern".
-                        // If pattern is [10, 100].
-                        // Phase 0: Dash[0-10], Gap[10-110].
-                        // Phase 5: Dash[5-10] (first 5 cut off), Gap...
-                        // Subtracting from phase moves pattern RIGHT.
-                        // Adding to phase moves pattern LEFT.
-
-                        // We want to move pattern ALONG the line (forward).
-                        // So we subtract.
-
-                        // We start with dash fully hidden "behind" start, or just entering?
-                        // Let's start with phase = segmentLength (hidden left) and decrease?
-
-                        // Simpler: Just cycle phase negatively.
-                        renderer.lineDashPhase = CGFloat(
-                            totalLen * 2.0 - (totalLen * 3.0 * progress))
-
+                        renderer.lineDashPhase = CGFloat(phase)
                         renderer.setNeedsDisplay()
                     }
                 }
@@ -410,6 +369,10 @@ struct MapView: UIViewRepresentable {
                 renderer.lineWidth = 6
                 renderer.lineCap = .round
                 renderer.lineJoin = .round
+                
+                // Optimised: Set lineDashPattern here once using screen points (20 points dash, 40 points gap)
+                renderer.lineDashPattern = [20, 40]
+                
                 activeAnimRenderers.append(renderer)
                 return renderer
             } else if let polyline = overlay as? MKPolyline {

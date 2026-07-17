@@ -30,7 +30,17 @@ class SearchCompleter: ObservableObject {
         
         delegateHelper.onUpdate = { [weak self] newResults in
             Task { @MainActor in
-                self?.completions = newResults.map { SearchResult.online($0) }
+                guard let self = self else { return }
+                let onlineResults = newResults.map { SearchResult.online($0) }
+                
+                // Retain offline results, placing them at the top, and append online results
+                let offlineResults = self.completions.filter {
+                    switch $0 {
+                    case .offline: return true
+                    case .online: return false
+                    }
+                }
+                self.completions = offlineResults + onlineResults
             }
         }
 
@@ -47,10 +57,47 @@ class SearchCompleter: ObservableObject {
                 if self.isCoordinate(newQuery) {
                     self.performCoordinateSearch(query: newQuery)
                 } else {
+                    // Populate offline results instantly
+                    self.performOfflineSearch(query: newQuery)
+                    
+                    // Fallback to online local search completion
                     self.completer.queryFragment = newQuery
                 }
             }
             .store(in: &cancellables)
+    }
+    
+    // MARK: - Offline Search Helpers
+    
+    private func performOfflineSearch(query: String) {
+        let trimmedQuery = query.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmedQuery.isEmpty else { return }
+
+        // Combine predefined POIs and active dynamic locations
+        let allSearchable = OfflineCities.all + allLocations
+
+        // Filter based on query match (name, description, or address)
+        let filtered = allSearchable.filter { location in
+            location.name.lowercased().contains(trimmedQuery) ||
+            location.description.lowercased().contains(trimmedQuery) ||
+            (location.address?.lowercased().contains(trimmedQuery) ?? false)
+        }
+
+        // De-duplicate results
+        var uniqueFiltered: [Location] = []
+        for loc in filtered {
+            let isDuplicate = uniqueFiltered.contains { existing in
+                existing.name == loc.name &&
+                abs(existing.coordinate.latitude - loc.coordinate.latitude) < 0.00001 &&
+                abs(existing.coordinate.longitude - loc.coordinate.longitude) < 0.00001
+            }
+            if !isDuplicate {
+                uniqueFiltered.append(loc)
+            }
+        }
+
+        // Map to SearchResult.offline
+        self.completions = uniqueFiltered.map { SearchResult.offline($0) }
     }
     
     // MARK: - Coordinate Search Helpers
